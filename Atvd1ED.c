@@ -33,10 +33,10 @@ int existeElemento(arvore *a, int x){
     return 1;
   
   else{
-    int ret = existeArvore(a->esq);
+    int ret = existeElemento(a->esq,x);
     if(ret == 1)
       return 1;
-    return existeElemento(a->dir);
+    return existeElemento(a->dir,x);
   }
 }
 
@@ -67,25 +67,25 @@ void imprimePreOrdem(arvore* a){
 
   if(a != NULL){
     printf("%d", a->info);
-    imprimePreOrdem(a, a->esq);
-    imprimePreOrdem(a,a->dir);
+    imprimePreOrdem(a->esq);
+    imprimePreOrdem(a->dir);
   }
 }
 
 void imprimeEmOrdem(arvore* a){
 
   if(a != NULL){
-    imprimePreOrdem(a, a->esq);
+    imprimePreOrdem(a->esq);
     printf("%d", a->info);    
-    imprimePreOrdem(a,a->dir);
+    imprimePreOrdem(a->dir);
   }
 }
 
 void imprimePosOrdem(arvore* a){
 
   if(a != NULL){
-    imprimePreOrdem(a, a->esq);
-    imprimePreOrdem(a,a->dir);
+    imprimePreOrdem(a->esq);
+    imprimePreOrdem(a->dir);
     printf("%d", a->info);
 
   }
@@ -123,7 +123,8 @@ void imprimeNivel(arvore *a,int cont, int nivel){
  } 
 }
 
-int menu(int option){
+void menu(int option,arvore* a){
+  int x;
   printf("Escolha uma das seguintes opcoes:\n[1] Ler uma arvore de um arquivo fornecido pelo usuário\n[2] Imprimir a arvore por pre-ordem/n[3] Imprimir a arvore em ordem\n[4]Imprimir a arvore por pos-ordem/n[5] Verificar se um elemento X existe na arvore\n[6] Contar o numero de elementos de uma arvore\n[7] Imprimir os nos das folhas da arvore\n[8] Verificar se uma arvore esta balanceada\n[9] Verificar se uma arvore e cheia\n[10] Imprimir o nivel de um no X\n [11] Sair");
   do{
   switch(option){
@@ -165,9 +166,9 @@ int main (){
 
   FILE *arq;
   arvore *a = NULL;
-
+  int option,n;
   arq = fopen("Entrada.txt", "r");
-  menu(option);
+  menu(option,a);
   a = lerArvore(arq);
   imprimeNivel(a,0,n);
   fclose(arq);
