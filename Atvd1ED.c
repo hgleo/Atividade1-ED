@@ -3,17 +3,17 @@ Enunciado:
 
 ## Implemente um programa que apresente na tela o seguinte menu de opções
 
-1- Ler uma árvore de um arquivo fornecido pelo usuário
-2- Imprimir a árvore (opões: pré-ordem,em-ordem,pós-ordem)
-3- Verificar se um elemento x existe na árvor
-4- Contar o número de elementos na árvore
+1- Ler uma árvore de um arquivo fornecido pelo usuário      ok
+2- Imprimir a árvore (opões: pré-ordem ,em-ordem,pós-ordem) ok
+3- Verificar se um elemento x existe na árvor               ok
+4- Contar o número de elementos na árvore 
 5- Imprimir os nós folhas da árvore
 6- Verificar se uma árvore está balanceada
-7- Verificar se uma árvore é chei
-8- Imprimir o nível de um nó x
+7- Verificar se uma árvore é cheio
+8- Imprimir o nível de um nó x                               ok
 9- Sair
 */
-#include "stdio.h"
+#include "stdio.h" 
 #include "stdlib.h"
 
 typedef struct arvore{
@@ -23,6 +23,22 @@ typedef struct arvore{
   struct arvore *dir;
 
 }arvore;
+
+int existeElemento(arvore *a){
+
+  if(a ==NULL)
+    return 0;
+  
+  else if(a->info == x)
+    return 1;
+  
+  else{
+    int ret = existeArvore(a->esq);
+    if(ret == 1)
+      return 1;
+    return existeElemento(a->dir);
+  }
+}
 
 arvore *lerArvore(FILE *arq){
     
@@ -47,7 +63,36 @@ arvore *lerArvore(FILE *arq){
   }
 }
 
+void imprimePreOrdem(arvore* a,){
+
+  if(a != NULL){
+    printf("%d", a->info);
+    imprimePreOrdem(a, a->esq);
+    imprimePreOrdem(a,a->dir);
+  }
+}
+
+void imprimeEmOrdem(arvore* a){
+
+  if(a != NULL){
+    imprimePreOrdem(a, a->esq);
+    printf("%d", a->info);    
+    imprimePreOrdem(a,a->dir);
+  }
+}
+
+void imprimePosOrdem(arvore* a){
+
+  if(a != NULL){
+    imprimePreOrdem(a, a->esq);
+    imprimePreOrdem(a,a->dir);
+    printf("%d", a->info);
+
+  }
+}
+
 int altura(arvore *a){
+
   if(a == NULL)
     return 0;
 
@@ -58,9 +103,9 @@ int altura(arvore *a){
     hd = altura(a->dir);
 
     if(he>hd)
-      return he+1
+      return he+1;
     else
-      return hd+1    
+      return hd+1;  
   
   }
 }
@@ -77,7 +122,6 @@ void imprimeNivel(arvore *a,int cont, int nivel){
    }
  } 
 }
-
 
 int main (){
 
