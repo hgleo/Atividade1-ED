@@ -2,11 +2,14 @@
 #include<stdlib.h>
 
 typedef struct arvore{
+
     int info;
     struct arvore *esq;
     struct arvore *dir;
 }arvore;
+
 arvore *lerArvore(FILE *arq) {
+
     arvore *a = NULL;
     char c;
     int num;
@@ -27,28 +30,36 @@ arvore *lerArvore(FILE *arq) {
         return a;
     }
 }
+
 void imprimirPreOrdem(arvore *a){
+
     if(a != NULL){
       printf("%d ", a->info);
       imprimirPreOrdem(a->esq);
       imprimirPreOrdem(a->dir);  
     }
 }
+
 void imprimirPosOrdem(arvore *a){
+
     if(a != NULL){
       imprimirPosOrdem(a->esq);
       imprimirPosOrdem(a->dir);
       printf("%d ", a->info);
     }
 }
+
 void imprimirEmOrdem(arvore *a){
+
     if(a != NULL){
       imprimirEmOrdem(a->esq);
       printf("%d ", a->info);
       imprimirEmOrdem(a->dir);
     }
 }
+
 void imprimirNivel(arvore *a, int cont, int n){
+
   if(a != NULL){
     if(cont == n) 
       printf("%d ", a->info);
@@ -58,7 +69,9 @@ void imprimirNivel(arvore *a, int cont, int n){
     }
   }
 }
+
 int altura(arvore *a){
+
   if (a == NULL) return 0;
   else{
     int he = altura(a->esq);
@@ -67,13 +80,16 @@ int altura(arvore *a){
     else return hd + 1;
   }
 }
+
 void imprimirEmLargura(arvore *a){
+
   int h = altura(a);
   for(int i = 1; i <= h; i++){
     imprimirNivel(a, 1, i);
   }
 }
 int procurarElemento(arvore *a, int x){
+
     if(a == NULL){
         return 0;
     }
@@ -84,14 +100,18 @@ int procurarElemento(arvore *a, int x){
         return procurarElemento(a->esq, x) || procurarElemento(a->dir, x);
     }
 }
+
 int contarElementos(arvore *a){
+
   if(a == NULL){
     return 0;
   }
   else
     return 1 + contarElementos(a->esq) + contarElementos(a->dir);
 }
+
 void imprimirFolhas(arvore *a){
+
   if(a != NULL){
     if(a->dir == NULL && a->esq == NULL)
       printf("%d ", a->info);
@@ -100,7 +120,9 @@ void imprimirFolhas(arvore *a){
   imprimirFolhas(a->dir);
 }
 }
+
 int verificarArvoreBalanceada(arvore *a){
+
     if(a == NULL)
         return 1;
 
@@ -113,7 +135,9 @@ int verificarArvoreBalanceada(arvore *a){
 
     return 0;
 }
+
 int verificarArvoreCheia(arvore *a){
+
   if(a == NULL) return 1;
 
   if(a->esq == NULL && a->dir == NULL) return 1;
@@ -122,7 +146,9 @@ int verificarArvoreCheia(arvore *a){
 
   return 0;
 }
+
 int nivelDoNo(arvore *a, int x, int nivel){
+
   if(a == NULL) return -1; //menos 1, porque nesse caso o nivel pode ser 0
 
   if(a->info == x) return nivel;
@@ -134,13 +160,16 @@ int nivelDoNo(arvore *a, int x, int nivel){
 
   return nivel1;
 }
+
 void freeArvore(arvore *a) {
+
     if (a != NULL) {
         freeArvore(a->esq);
         freeArvore(a->dir);
         free(a);
     }
 }
+
 int main(){
 
     arvore *a = NULL;
